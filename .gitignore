@@ -1,0 +1,16 @@
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+npm-debug.log
+
+# GitHub Actions
+.github/workflows/test.yml~

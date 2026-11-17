@@ -1,0 +1,48 @@
+name: "Install Graphviz on Runners"
+description: "Installs Graphviz on various operating systems."
+
+branding:
+  icon: arrow-down-circle
+  color: purple
+
+runs:
+  using: "composite"
+  steps:
+    - id: install-graphviz-macos
+      name: Install Graphviz on MacOS
+      if: runner.os == 'macOS'
+      shell: bash
+      env:
+        HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK: true
+      run: |
+        # Install Graphviz on MacOS
+        brew info graphviz
+        brew install graphviz
+    - id: install-graphviz-windows
+      name: Install Graphviz on Windows
+      if: runner.os == 'Windows'
+      shell: bash
+      run: |
+        # Install Graphviz on Linux
+        choco install graphviz
+    - id: install-graphviz-linux
+      name: Install Graphviz on Linux
+      if: runner.os == 'Linux'
+      shell: bash
+      run: |
+        # Install Graphviz on Linux
+        sudo apt update
+        sudo apt install -qy gsfonts
+        sudo apt -qq list fonts-liberation gsfonts
+        sudo apt install -qy graphviz
+        sudo apt -y autoremove --purge
+        sudo apt -y autoclean
+        sudo apt clean
+    - id: check-graphviz
+      name: Check Graphviz
+      if: ${{ success() }}
+      shell: bash
+      run: |
+        # Check Graphviz
+        dot -V
+        echo "Installed successfully on ${{ runner.os }}"
